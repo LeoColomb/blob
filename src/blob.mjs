@@ -21,8 +21,7 @@ export class Blob {
 
   options (options = {}) {
     this.localOptions = Object.assign({
-      width: 80,
-      height: 80,
+      size: 1.0,
       fillColor: '#ffffff',
       shadowColor: '#ffffff',
       shadowBlur: 30,
@@ -52,7 +51,7 @@ export class Blob {
     this.context.fillStyle = this.localOptions.fillColor
     this.context.beginPath()
     for (let theta = 0; theta < 2 * Math.PI; theta += this.localOptions.thetaResolution) {
-      const r = 65 * this.polarFunction(theta)
+      const r = 65 * this.polarFunction(theta) * this.localOptions.size
       this.context.lineTo(
         window.innerWidth / 2 + r * Math.cos(theta),
         window.innerHeight / 2 + r * Math.sin(theta)

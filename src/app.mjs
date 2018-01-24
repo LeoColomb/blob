@@ -1,5 +1,11 @@
 import { Blob } from './blob.mjs'
 
+/**
+ * Blobs
+ * Copyright (c) 2018 Léo Colombaro
+ *
+ * @author 2018 Léo Colombaro (colombaro.fr)
+ */
 class App {
   constructor () {
     const canvas = document.getElementById('canvas')
@@ -8,11 +14,17 @@ class App {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     this.blobs = []
-    this.blobs.push(new Blob(this.ctx, {
-      fillColor: 'red',
-      shadowColor: 'red'
-    }))
-    this.blobs.push(new Blob(this.ctx, {}))
+    this.addBlob({
+      size: 1.1,
+      fillColor: '#2169b3',
+      shadowColor: '#2169b3'
+    })
+    this.addBlob({
+      size: 1.05,
+      fillColor: '#28b4d7',
+      shadowColor: '#28b4d7'
+    })
+    this.addBlob()
     this.frameRequestId = this.frame()
   }
 
