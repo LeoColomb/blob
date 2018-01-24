@@ -68,7 +68,7 @@ export class Blob {
 
       wave.life += dt
       if (wave.life > wave.lifeTime) {
-        wave.constructor()
+        wave.init()
       }
     }
   }
@@ -82,6 +82,10 @@ export class Blob {
 
 class Wave {
   constructor () {
+    this.init()
+  }
+
+  init () {
     this.maxAlpha = Math.random() / 20
     this.alpha = 0
     this.omega = Math.floor(Math.random() * 10)

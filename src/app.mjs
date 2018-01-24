@@ -1,8 +1,8 @@
-import { Blob } from './blob'
+import { Blob } from './blob.mjs'
 
 class App {
   constructor () {
-    cons canvas = document.getElementById('canvas')
+    const canvas = document.getElementById('canvas')
     this.ctx = canvas.getContext('2d')
 
     canvas.width = window.innerWidth
@@ -18,19 +18,14 @@ class App {
 
   destroyer () {
     window.cancelAnimationFrame(this.frameRequestId)
-  },
+  }
 
   frame () {
-    this.ctx.clearRect(
-      0,
-      0,
-      window.innerWidth,
-      window.innerHeight
-    )
+    this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
     for (const blob of this.blobs) {
       blob.render()
     }
-    return window.requestAnimationFrame(this.frame)
+    return window.requestAnimationFrame(this.frame.bind(this))
   }
 
   getBlob (blobId) {
