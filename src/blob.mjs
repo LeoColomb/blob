@@ -15,7 +15,6 @@ export class Blob {
     this.options(options)
 
     this.context = context
-    this.radius = window.innerWidth / 800
     this.generateWaves()
   }
 
@@ -24,6 +23,7 @@ export class Blob {
       size: 1.0,
       color: '#ffffff',
       shadowBlur: 30,
+      radius: window.innerWidth / 800,
       waves: 7,
       thetaResolution: 0.05
     }, options)
@@ -41,7 +41,7 @@ export class Blob {
   }
 
   polarFunction (theta) {
-    let r = this.radius
+    let r = this.localOptions.radius
     for (const wave of this.waves) {
       r += wave.alpha * Math.sin(wave.omega * theta + wave.phi)
     }
@@ -50,7 +50,7 @@ export class Blob {
 
   drawFrame () {
     this.context.shadowColor = this.localOptions.color
-    this.context.shadowBlur = this.localOptions.shadowBlur * this.radius
+    this.context.shadowBlur = this.localOptions.shadowBlur * this.localOptions.radius
     this.context.fillStyle = this.localOptions.color
     this.context.beginPath()
     for (let theta = 0; theta < 2 * Math.PI; theta += this.localOptions.thetaResolution) {

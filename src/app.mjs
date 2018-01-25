@@ -43,16 +43,13 @@ class App {
     return window.requestAnimationFrame(this.frame.bind(this))
   }
 
-  getBlob (blobId) {
-    return this.blobs[blobId].localOptions
-  }
-
   addBlob (blobOptions = {}) {
     const blob = new Blob(this.ctx, blobOptions)
     const blobGui = this.gui.addFolder(`Blob ${this.blobs.length + 1}`)
-    blobGui.add(blob.localOptions, 'size', 0, 2)
+    blobGui.add(blob.localOptions, 'size', 0, 20)
     blobGui.addColor(blob.localOptions, 'color')
-    blobGui.add(blob.localOptions, 'shadowBlur', -30, 100)
+    blobGui.add(blob.localOptions, 'shadowBlur', -30, 1000)
+    blobGui.add(blob.localOptions, 'radius', 0.1, 50.0)
     blobGui.add(blob.localOptions, 'waves', 1, 100)
     blobGui.add(blob.localOptions, 'thetaResolution', 0.001, 0.5)
     blob.attach(blobGui)
@@ -62,10 +59,6 @@ class App {
   deleteBlob (blobId) {
     const blob = this.blobs.splice(blobId, 1)[0]
     this.gui.removeFolder(blob.attached)
-  }
-
-  updateBlob (blobId, blobOptions = {}) {
-    this.blobs[blobId].options(blobOptions)
   }
 }
 
