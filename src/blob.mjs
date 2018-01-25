@@ -22,12 +22,15 @@ export class Blob {
   options (options = {}) {
     this.localOptions = Object.assign({
       size: 1.0,
-      fillColor: '#ffffff',
-      shadowColor: '#ffffff',
+      color: '#ffffff',
       shadowBlur: 30,
       waves: 7,
       thetaResolution: 0.05
     }, options)
+  }
+
+  attach (injected) {
+    this.attached = injected
   }
 
   generateWaves () {
@@ -46,9 +49,9 @@ export class Blob {
   }
 
   drawFrame () {
-    this.context.shadowColor = this.localOptions.shadowColor
+    this.context.shadowColor = this.localOptions.color
     this.context.shadowBlur = this.localOptions.shadowBlur * this.radius
-    this.context.fillStyle = this.localOptions.fillColor
+    this.context.fillStyle = this.localOptions.color
     this.context.beginPath()
     for (let theta = 0; theta < 2 * Math.PI; theta += this.localOptions.thetaResolution) {
       const r = 65 * this.polarFunction(theta) * this.localOptions.size

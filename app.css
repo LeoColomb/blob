@@ -1,5 +1,10 @@
 * {
   box-sizing: border-box;
+}
+
+html,
+body,
+canvas {
   border: none;
   margin: 0;
   padding: 0;

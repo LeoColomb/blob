@@ -1,4 +1,5 @@
 import { Blob } from './blob.mjs'
+import dat from '../vendor/dat/index.js'
 
 /**
  * Blobs
@@ -11,18 +12,19 @@ class App {
     const canvas = document.getElementById('canvas')
     this.ctx = canvas.getContext('2d')
 
+    this.gui = new dat.GUI()
+    this.gui.add(this, 'addBlob')
+
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     this.blobs = []
     this.addBlob({
       size: 1.1,
-      fillColor: '#2169b3',
-      shadowColor: '#2169b3'
+      color: '#2169b3'
     })
     this.addBlob({
       size: 1.05,
-      fillColor: '#28b4d7',
-      shadowColor: '#28b4d7',
+      color: '#28b4d7',
       waves: 12
     })
     this.addBlob()
@@ -46,11 +48,20 @@ class App {
   }
 
   addBlob (blobOptions = {}) {
-    this.blobs.push(new Blob(this.ctx, blobOptions))
+    const blob = new Blob(this.ctx, blobOptions)
+    const blobGui = this.gui.addFolder(`Blob ${this.blobs.length + 1}`)
+    blobGui.add(blob.localOptions, 'size', 0, 2)
+    blobGui.addColor(blob.localOptions, 'color')
+    blobGui.add(blob.localOptions, 'shadowBlur', -30, 100)
+    blobGui.add(blob.localOptions, 'waves', 1, 100)
+    blobGui.add(blob.localOptions, 'thetaResolution', 0.001, 0.5)
+    blob.attach(blobGui)
+    this.blobs.push(blob)
   }
 
   deleteBlob (blobId) {
-    this.blobs.pop(blobId)
+    const blob = this.blobs.splice(blobId, 1)[0]
+    this.gui.removeFolder(blob.attached)
   }
 
   updateBlob (blobId, blobOptions = {}) {
@@ -58,4 +69,4 @@ class App {
   }
 }
 
-new App()
+new App() // eslint-disable-line no-new
