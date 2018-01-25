@@ -22,7 +22,8 @@ class App {
     this.addBlob({
       size: 1.05,
       fillColor: '#28b4d7',
-      shadowColor: '#28b4d7'
+      shadowColor: '#28b4d7',
+      waves: 12
     })
     this.addBlob()
     this.frameRequestId = this.frame()
