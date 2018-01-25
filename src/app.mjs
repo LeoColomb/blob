@@ -1,4 +1,5 @@
 import { Blob } from './blob.mjs'
+import { GUI } from '../vendor/dat.gui.min.js'
 
 /**
  * Blobs
@@ -10,6 +11,8 @@ class App {
   constructor () {
     const canvas = document.getElementById('canvas')
     this.ctx = canvas.getContext('2d')
+
+    this.gui = new GUI()
 
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
@@ -45,7 +48,16 @@ class App {
   }
 
   addBlob (blobOptions = {}) {
-    this.blobs.push(new Blob(this.ctx, blobOptions))
+    const blobId = this.blobs.length
+    const blob = new Blob(this.ctx, blobOptions)
+    const blobGui = this.gui.addFolder(`Blob ${id}`)
+    blobGui.add(blob.localOptions.size, 'Size').min(0)
+    blobGui.add(blob.localOptions.fillColor, 'Color')
+    blobGui.add(blob.localOptions.shadowColor, 'Shadow Color')
+    blobGui.add(blob.localOptions.shadowBlur, 'Blur')
+    blobGui.add(blob.localOptions.waves, 'Waves').min(1)
+    blobGui.add(blob.localOptions.thetaResolution, 'Theta')
+    this.blobs.push(blob)
   }
 
   deleteBlob (blobId) {
