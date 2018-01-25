@@ -48,10 +48,10 @@ class App {
     const blobGui = this.gui.addFolder(`Blob ${this.blobs.length + 1}`)
     blobGui.add(blob.localOptions, 'size', 0, 20)
     blobGui.addColor(blob.localOptions, 'color')
-    blobGui.add(blob.localOptions, 'shadowBlur', -30, 1000)
-    blobGui.add(blob.localOptions, 'radius', 0.1, 50.0)
+    blobGui.add(blob.localOptions, 'shadowBlur', 0, 800)
+    blobGui.add(blob.localOptions, 'radius', 0.1, 20)
     blobGui.add(blob.localOptions, 'waves', 1, 100)
-    blobGui.add(blob.localOptions, 'thetaResolution', 0.001, 0.5)
+    blobGui.add(blob.localOptions, 'thetaResolution', 0.001, 0.2)
     blob.attach(blobGui)
     this.blobs.push(blob)
   }
