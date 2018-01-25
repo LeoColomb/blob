@@ -62,12 +62,13 @@ export class Blob {
 
   integrate (dt) {
     for (const wave of this.waves) {
-      wave.phi += dt * wave.deltaPhi
-      wave.alpha = wave.maxAlpha * Math.sin(Math.PI * wave.life / wave.lifeTime)
-
-      wave.life += dt
-      if (wave.life > wave.lifeTime) {
+      const nextLife = wave.life + dt
+      if (nextLife > wave.lifeTime) {
         wave.init()
+      } else {
+        wave.phi += dt * wave.deltaPhi
+        wave.alpha = wave.maxAlpha * Math.sin(Math.PI * wave.life / wave.lifeTime)
+        wave.life = nextLife
       }
     }
   }
