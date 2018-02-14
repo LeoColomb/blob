@@ -2,7 +2,7 @@
   <img src="thumb.png">
 </p>
 
-# Blob
+# [Blob](https://blob.colombaro.fr/)
 
 > Moving forms like a real blob
 
